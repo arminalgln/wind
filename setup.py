@@ -1,0 +1,27 @@
+from setuptools import setup
+setup(name='windforecast',
+version='0.1',
+description='Testing installation of Package',
+url='#',
+author='Armin',
+author_email='aalig002@ucr.edu',
+license='MIT',
+packages=['windforecast'],
+install_requires=[
+    'setuptools',
+    'markdown',
+    'numpy',
+    'tensorflow',
+    'pandas',
+    'matplotlib',
+    'datetime',
+    'solcast',
+    # 'json',
+    # 'time',
+    # 'urllib',
+    # 'random',
+    'opencage',
+    'sklearn',    
+    
+      ],
+zip_safe=False)
