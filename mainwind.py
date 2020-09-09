@@ -19,6 +19,19 @@ from time import sleep
 import schedule
 import tensorflow as tf
 
+#%%
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+  # Restrict TensorFlow to only allocate 1GB of memory on the first GPU
+  try:
+    tf.config.experimental.set_virtual_device_configuration(
+        gpus[0],
+        [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=1024)])
+    logical_gpus = tf.config.experimental.list_logical_devices('GPU')
+    print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPUs")
+  except RuntimeError as e:
+    # Virtual devices must be set before GPUs have been initialized
+    print(e)
 
 #%%
 ####################################################
@@ -79,11 +92,11 @@ wind_forecaster.train(x_train, y_train, batch=10, epoch=100)
 
 
 #%%
-pred = wind_forecaster.wind_predict(x_test)
+pred = wind_forecaster.wind_predict(x_train)
 for i, k in enumerate(pred[0:10]):
     # print(i[30])
     # plt.plot(x_train[i])
-    plt.plot(y_test[i])
+    plt.plot(y_train[i])
     plt.plot(pred[i])
     plt.legend(['real','pred'])
     plt.show()
